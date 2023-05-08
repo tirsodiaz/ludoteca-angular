@@ -1,7 +1,10 @@
+import { Customer } from "src/app/customer/model/Customer";
+import { Game } from "src/app/game/model/Game";
+
 export class Booking {
     id: number;
-    idCustomer: number;
-    idGame: number;
+    customer: Customer;
+    game: Game;
     inicio: Date;
     fin: Date;
 }

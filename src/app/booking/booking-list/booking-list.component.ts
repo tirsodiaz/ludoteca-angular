@@ -20,11 +20,11 @@ import { Pageable } from 'src/app/core/model/page/Pageable';
 export class BookingListComponent implements OnInit {
 
   pageNumber: number = 0;
-  pageSize: number = 5;
+  pageSize: number = 2;
   totalElements: number = 0;
 
   dataSource = new MatTableDataSource<Booking>();
-  displayedColumns: string[] = ['id','title','customer','inicio','fin','action'];
+  displayedColumns: string[] = ['id','game.title','customer.name','inicio','fin','action'];
 
   customers: Customer[];
   games: Game[];

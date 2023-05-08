@@ -1,1 +1,46 @@
-<p>booking-edit works!</p>
+<!--<p>booking-edit works!</p>-->
+<div class="container">
+    <h1 *ngIf="booking.id == null">Crear Reserva/Préstamo</h1>
+    <h1 *ngIf="booking.id != null">Modificar Reserva</h1>
+
+    <form>
+        <mat-form-field>
+            <mat-label>Identificador</mat-label>
+            <input type="text" matInput placeholder="Identificador" [(ngModel)]="booking.id" name="id" disabled>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Inicio</mat-label>
+            <input type="date" matInput placeholder="Start" [(ngModel)]="booking.inicio" name="inicio" required>
+            <mat-error>Inicio reserva no puede estar vacío</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Fin</mat-label>
+            <input type="date" matInput placeholder="End" [(ngModel)]="booking.fin" name="fin" required>
+            <mat-error>Fin reserva no puede estar vacía</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Game</mat-label>
+            <mat-select disableRipple [(ngModel)]="booking.game" name="game" required>
+                <mat-option *ngFor="let game of games" [value]="game">{{game.title}}</mat-option>
+            </mat-select>
+            <mat-error>El juego no puede estar vacío</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Customer</mat-label>
+            <mat-select disableRipple [(ngModel)]="booking.customer" name="customer" required>
+                <mat-option *ngFor="let customer of customers" [value]="customer">{{customer.name}}</mat-option>
+            </mat-select>
+            <mat-error>El cliente no puede estar vacío</mat-error>
+        </mat-form-field>
+    </form>
+
+    <div class="buttons">
+        <button mat-stroked-button (click)="onClose()">Cerrar</button>
+        <button mat-flat-button color="primary" (click)="onSave()">Guardar</button>
+    </div>
+</div>
+
