@@ -28,7 +28,7 @@ export class BookingEditComponent implements OnInit {
         private bookingService: BookingService,
 		private gameService: GameService,
         private customerService: CustomerService,
-        public dialog: MatDialog,
+        public dialog: MatDialog,        
     ) { }
 
     ngOnInit(): void {
@@ -75,7 +75,7 @@ export class BookingEditComponent implements OnInit {
             next: () => {
                 console.log('Guardado con éxito');
                 // this.dialog.open(DialogElementsComponent, {
-                //     data: { title: "Resultado Operación", description: 'Actualización OK' }
+                //      data: { title: "Resultado Operación", description: 'Actualización OK' }
                 // });                
             },
             error: (errorResponse) => {
@@ -95,3 +95,10 @@ export class BookingEditComponent implements OnInit {
     }
 
 }
+
+
+// @Component({
+//     selector: 'dialog-elements-example-dialog',
+//     templateUrl: 'dialog-elements-example-dialog.html',
+//   })
+//   export class DialogElementsExampleDialog {}

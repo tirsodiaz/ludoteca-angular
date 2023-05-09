@@ -40,8 +40,7 @@ providers: [
     {
         provide: MAT_DIALOG_DATA,
         useValue: {},
-    }, 
-    MatDatepickerModule
+    }
 ]
 })
 export class BookingModule { }

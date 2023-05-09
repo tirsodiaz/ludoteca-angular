@@ -21,4 +21,7 @@ export class DialogElementsExampleDialogComponent implements OnInit {
     this.description = this.data.description;
   }
 
+  close() {
+    this.dialogRef.close(true);
+  }
 }

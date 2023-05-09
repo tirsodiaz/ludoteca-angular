@@ -71,12 +71,12 @@ export class BookingListComponent implements OnInit {
     });
     
     
-    this.customerService.getCustomers().subscribe(
-      customers => this.customers = customers
+    this.customerService.getCustomers().subscribe(customers => 
+      this.customers = customers
     );
 
-    this.gameService.getGames().subscribe(
-      games => this.games = games
+    this.gameService.getGames().subscribe(games => 
+      this.games = games
     );
 
   } 
