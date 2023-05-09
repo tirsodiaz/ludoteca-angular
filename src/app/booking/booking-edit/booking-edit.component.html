@@ -7,19 +7,25 @@
         <mat-form-field>
             <mat-label>Identificador</mat-label>
             <input type="text" matInput placeholder="Identificador" [(ngModel)]="booking.id" name="id" disabled>
-        </mat-form-field>
-
-        <mat-form-field>
-            <mat-label>Inicio</mat-label>
-            <input type="date" matInput placeholder="Start" [(ngModel)]="booking.inicio" name="inicio" required>
+        </mat-form-field>       
+       
+        <mat-form-field appearance="fill">
+            <mat-label>Choose a initial date</mat-label>
+            <input matInput [matDatepicker]="picker" [(ngModel)]="booking.inicio" [ngModelOptions]="{standalone: true}">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
             <mat-error>Inicio reserva no puede estar vacío</mat-error>
         </mat-form-field>
 
-        <mat-form-field>
-            <mat-label>Fin</mat-label>
-            <input type="date" matInput placeholder="End" [(ngModel)]="booking.fin" name="fin" required>
-            <mat-error>Fin reserva no puede estar vacía</mat-error>
-        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Choose a end date</mat-label>
+            <input matInput [matDatepicker]="picker2" [(ngModel)]="booking.fin" [ngModelOptions]="{standalone: true}">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+            <mat-error>Fin reserva no puede estar vacío</mat-error>
+        </mat-form-field>        
 
         <mat-form-field>
             <mat-label>Game</mat-label>

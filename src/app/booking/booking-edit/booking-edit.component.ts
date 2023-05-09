@@ -1,5 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
+//import { DialogElementsComponent } from '../../core/dialog-elements-example-dialog/dialog-elements-example-dialog.component';
 
 import { Booking } from '../model/Booking';
 import { Customer } from 'src/app/customer/model/Customer';
@@ -8,19 +10,17 @@ import { BookingService } from '../booking.service';
 import { CustomerService } from 'src/app/customer/customer.service';
 import { GameService } from 'src/app/game/game.service';
 
-
-
 @Component({
   selector: 'app-booking-edit',
   templateUrl: './booking-edit.component.html',
-  styleUrls: ['./booking-edit.component.scss']
+  styleUrls: ['./booking-edit.component.scss']  
 })
 export class BookingEditComponent implements OnInit {
 
     booking: Booking; 
     games: Game[];
     customers: Customer[];
-    errors: string;
+   
 
     constructor(
         public dialogRef: MatDialogRef<BookingEditComponent>,
@@ -28,12 +28,12 @@ export class BookingEditComponent implements OnInit {
         private bookingService: BookingService,
 		private gameService: GameService,
         private customerService: CustomerService,
+        public dialog: MatDialog,
     ) { }
 
     ngOnInit(): void {
-        if (this.data.booking != null) {
-            this.booking = Object.assign({}, this.data.booking);
-            this.booking.inicio = new Date(this.data.booking.inicio)
+        if (this.data.booking != null) {            
+            this.booking = Object.assign({}, this.data.booking);            
         }
         else {
             this.booking = new Booking();
@@ -67,14 +67,27 @@ export class BookingEditComponent implements OnInit {
     }
 
     onSave() {
-        this.bookingService.saveBooking(this.booking).subscribe(
-          result => {
-            this.dialogRef.close();
-          }, /* sacar ventana con el error del backend
-          error: (errorResponse) => {
-            this.snackbarService.error(errorResponse['message']);
-          }, */
-        );
+        // this.bookingService.saveBooking(this.booking).subscribe(result => {
+        //     this.dialogRef.close();
+        //   });    
+
+        this.bookingService.saveBooking(this.booking).subscribe({
+            next: () => {
+                console.log('Guardado con éxito');
+                // this.dialog.open(DialogElementsComponent, {
+                //     data: { title: "Resultado Operación", description: 'Actualización OK' }
+                // });                
+            },
+            error: (errorResponse) => {
+                console.log(errorResponse.error.message);        
+                // this.dialog.open(DialogElementsComponent, {
+                //     data: { title: "Resultado Operación", description: errorResponse.error.message }
+                // });         
+            },
+            complete() {
+                this.dialogRef.close();
+            },
+        });       
     }  
 
     onClose() {
