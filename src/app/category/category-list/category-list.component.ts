@@ -22,6 +22,9 @@ export class CategoryListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    //modo síncrono si categoryService.getCategories() no devolviera Observable
+    //this.dataSource.data = this.categoryService.getCategories();
+    //modo asíncrono porque devuelve Observable el servicio pudiéndonos suscribir
     this.categoryService.getCategories().subscribe(
       categories => this.dataSource.data = categories
     );
