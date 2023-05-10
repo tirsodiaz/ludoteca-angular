@@ -1,10 +1,13 @@
 <!--<p>dialog-elements-example-dialog works!</p>-->
-<h1 mat-dialog-title>Dialog with elements</h1>
-<div mat-dialog-content>This dialog showcases the title, close, content and actions elements.</div>
+<h1>{{title}}</h1>
+<div [innerHTML]="description" class="description"></div>
+<input type="text" matInput [(ngModel)]="description2" disabled>
+
+
 <div mat-dialog-actions>
   <button mat-button mat-dialog-close>Close1</button>
 </div>
 <div class="buttons">
-  <button mat-flat-button color="primary" (click)="close()">Close2</button>
+  <button mat-flat-button color="primary" (click)="onClose()">Close2</button>
 </div>
 

@@ -9,6 +9,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { DialogElementsExampleDialogComponent } from './dialog-elements-example-dialog/dialog-elements-example-dialog.component';
 
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [HeaderComponent, DialogConfirmationComponent, DialogElementsExampleDialogComponent],
@@ -19,6 +21,9 @@ import { DialogElementsExampleDialogComponent } from './dialog-elements-example-
     MatToolbarModule,
     MatDialogModule,
     MatButtonModule,
+
+    MatInputModule,
+    FormsModule,
   ],
   exports: [
     HeaderComponent

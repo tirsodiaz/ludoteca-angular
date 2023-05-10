@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatDialog } from '@angular/material/dialog';
-//import { DialogElementsComponent } from '../../core/dialog-elements-example-dialog/dialog-elements-example-dialog.component';
+import { DialogElementsExampleDialogComponent } from '../../core/dialog-elements-example-dialog/dialog-elements-example-dialog.component';
 
 import { Booking } from '../model/Booking';
 import { Customer } from 'src/app/customer/model/Customer';
@@ -74,19 +74,20 @@ export class BookingEditComponent implements OnInit {
         this.bookingService.saveBooking(this.booking).subscribe({
             next: () => {
                 console.log('Guardado con éxito');
-                // this.dialog.open(DialogElementsComponent, {
-                //      data: { title: "Resultado Operación", description: 'Actualización OK' }
-                // });                
+                this.dialogRef.close();
+                this.dialog.open(DialogElementsExampleDialogComponent, {
+                     data: { title: "Resultado Operación", description: 'Actualización OK' }
+                });                               
             },
             error: (errorResponse) => {
                 console.log(errorResponse.error.message);        
-                // this.dialog.open(DialogElementsComponent, {
-                //     data: { title: "Resultado Operación", description: errorResponse.error.message }
-                // });         
+                this.dialog.open(DialogElementsExampleDialogComponent, {
+                    data: { title: "Resultado Operación", description: errorResponse.error.message, description2: errorResponse.error.message }
+                });         
             },
-            complete() {
-                this.dialogRef.close();
-            },
+            // complete() {
+            //     this.dialogRef.close();
+            // },
         });       
     }  
 
@@ -95,10 +96,3 @@ export class BookingEditComponent implements OnInit {
     }
 
 }
-
-
-// @Component({
-//     selector: 'dialog-elements-example-dialog',
-//     templateUrl: 'dialog-elements-example-dialog.html',
-//   })
-//   export class DialogElementsExampleDialog {}

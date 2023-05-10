@@ -10,6 +10,7 @@ export class DialogElementsExampleDialogComponent implements OnInit {
 
   title : string;
   description : string;
+  description2 : string;
 
   constructor(
     public dialogRef: MatDialogRef<DialogElementsExampleDialogComponent>,
@@ -19,9 +20,10 @@ export class DialogElementsExampleDialogComponent implements OnInit {
   ngOnInit(): void {
     this.title = this.data.title;
     this.description = this.data.description;
+    this.description2 = this.data.description2;
   }
 
-  close() {
+  onClose() {
     this.dialogRef.close(true);
   }
 }
