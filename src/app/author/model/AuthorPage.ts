@@ -5,4 +5,6 @@ export class AuthorPage {
     content: Author[];
     pageable: Pageable;
     totalElements: number;
+    totalPages: number;
+    first: boolean;
 }

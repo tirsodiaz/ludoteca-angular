@@ -16,6 +16,10 @@ export class BookingService {
         private http: HttpClient
     ) { }
 
+    getAllBookings(): Observable<Booking[]> {            
+        //return of(BOOKING_DATA); 
+        return this.http.get<Booking[]>(this.composeFindUrl(null, null));
+    }
     /*
     getBookings(title?: String, customerId?: number): Observable<Booking[]> {            
         //return of(BOOKING_DATA); 

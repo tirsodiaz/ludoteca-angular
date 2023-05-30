@@ -24,15 +24,15 @@ export class GameListComponent implements OnInit {
         public dialog: MatDialog,
     ) { }
 
-    ngOnInit(): void {
-
+    ngOnInit(): void {       
+        
         this.gameService.getGames().subscribe(
             games => this.games = games
         );
 
         this.categoryService.getCategories().subscribe(
             categories => this.categories = categories
-        );
+        );       
     }
 
     onCleanFilter(): void {

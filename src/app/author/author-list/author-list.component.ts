@@ -18,7 +18,9 @@ export class AuthorListComponent implements OnInit {
     pageNumber: number = 0;
     pageSize: number = 5;
     totalElements: number = 0;
-
+    totalPages: number = 0;
+    first: boolean = false;
+   
     dataSource = new MatTableDataSource<Author>();
     displayedColumns: string[] = ['id', 'name', 'nationality', 'action'];
 
@@ -52,6 +54,8 @@ export class AuthorListComponent implements OnInit {
             this.pageNumber = data.pageable.pageNumber;
             this.pageSize = data.pageable.pageSize;
             this.totalElements = data.totalElements;
+            this.totalPages = data.totalPages;
+            this.first = data.first;        
         });
 
     }  
