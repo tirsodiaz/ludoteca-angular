@@ -14,14 +14,14 @@ export class CategoryEditComponent implements OnInit {
   category : Category;
 
   constructor(
-    public dialogRef: MatDialogRef<CategoryEditComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private categoryService: CategoryService
+    public dialogRef: MatDialogRef<CategoryEditComponent>,
+    private categoryService: CategoryService       
   ) { }
 
   ngOnInit(): void {
     if (this.data.category != null) {
-      //this.category = this.data.category; actualiza también el listado
+      //this.category = this.data.category; //actualiza también el listado
       this.category = Object.assign({}, this.data.category); //copia para no actualizar listado
     }
     else {

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { Pageable } from '../core/model/page/Pageable';
+import { PageableRequest } from '../core/model/page/PageableRequest';
 import { Author } from './model/Author';
 import { AuthorPage } from './model/AuthorPage';
 import { AUTHOR_DATA } from './model/mock-authors';
@@ -16,9 +16,9 @@ export class AuthorService {
         private http: HttpClient
         ) { }
 
-    getAuthors(pageable: Pageable): Observable<AuthorPage> {
+    getAuthors(pageableRequestt: PageableRequest): Observable<AuthorPage> {
         //return of(AUTHOR_DATA);
-        return this.http.post<AuthorPage>('http://localhost:8080/author', {pageable:pageable});
+        return this.http.post<AuthorPage>('http://localhost:8080/author', {pageableRequest:pageableRequestt});
     }
 
     getAllAuthors(): Observable<Author[]> {

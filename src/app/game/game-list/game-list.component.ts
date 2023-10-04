@@ -62,9 +62,9 @@ export class GameListComponent implements OnInit {
         });    
     }  
 
-    editGame(game: Game) {
+    editGame(gamee: Game) {
         const dialogRef = this.dialog.open(GameEditComponent, {
-            data: { game: game }
+            data: { game: gamee }
         });
 
         dialogRef.afterClosed().subscribe(result => {

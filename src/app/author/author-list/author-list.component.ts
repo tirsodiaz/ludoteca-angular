@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { DialogConfirmationComponent } from 'src/app/core/dialog-confirmation/dialog-confirmation.component';
-import { Pageable } from 'src/app/core/model/page/Pageable';
+import { PageableRequest } from 'src/app/core/model/page/PageableRequest';
 import { AuthorEditComponent } from '../author-edit/author-edit.component';
 import { AuthorService } from '../author.service';
 import { Author } from '../model/Author';
@@ -16,7 +16,7 @@ styleUrls: ['./author-list.component.scss']
 export class AuthorListComponent implements OnInit {
 
     pageNumber: number = 0;
-    pageSize: number = 5;
+    pageSize: number = 3;
     totalElements: number = 0;
     totalPages: number = 0;
     first: boolean = false;
@@ -35,7 +35,7 @@ export class AuthorListComponent implements OnInit {
 
     loadPage(event?: PageEvent) {
 
-        let pageable : Pageable =  {
+        let ppageableRequest : PageableRequest =  {
             pageNumber: this.pageNumber,
             pageSize: this.pageSize,
             sort: [{
@@ -45,11 +45,11 @@ export class AuthorListComponent implements OnInit {
         }
 
         if (event != null) {
-            pageable.pageSize = event.pageSize
-            pageable.pageNumber = event.pageIndex;
+            ppageableRequest.pageSize = event.pageSize
+            ppageableRequest.pageNumber = event.pageIndex;
         }
 
-        this.authorService.getAuthors(pageable).subscribe(data => {
+        this.authorService.getAuthors(ppageableRequest).subscribe(data => {
             this.dataSource.data = data.content;
             this.pageNumber = data.pageable.pageNumber;
             this.pageSize = data.pageable.pageSize;
@@ -70,9 +70,9 @@ export class AuthorListComponent implements OnInit {
         });      
     }  
 
-    editAuthor(author: Author) {    
+    editAuthor(authorr: Author) {    
         const dialogRef = this.dialog.open(AuthorEditComponent, {
-            data: { author: author }
+            data: { author: authorr }
         });
 
         dialogRef.afterClosed().subscribe(result => {

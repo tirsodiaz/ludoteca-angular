@@ -37,7 +37,6 @@ export class GameEditComponent implements OnInit {
         this.categoryService.getCategories().subscribe(
             categories => {
                 this.categories = categories;
-
                 if (this.game.category != null) {
                     let categoryFilter: Category[] = categories.filter(category => category.id == this.data.game.category.id);
                     if (categoryFilter != null) {

@@ -1,8 +1,8 @@
-import { Pageable } from "../../core/model/page/Pageable";
+import { PageableRequest } from "../../core/model/page/PageableRequest";
 import { Booking } from "./Booking";
 
 export class BookingPage {
     content: Booking[];
-    pageable: Pageable;
+    pageable: PageableRequest;
     totalElements: number;
 }

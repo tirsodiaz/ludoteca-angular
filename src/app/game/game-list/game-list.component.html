@@ -1,16 +1,16 @@
 <!--<p>game-list works!</p>-->
 <div class="container">
-    <h1>Catálogo de juegos</h1>
+    <h1>Games</h1>
 
     <div class="filters">
         <form>
             <mat-form-field>
-                <mat-label>Título del juego</mat-label>
+                <mat-label>Game Title</mat-label>
                 <input type="text" matInput placeholder="Título del juego" [(ngModel)]="filterTitle" name="title">
             </mat-form-field>
 
             <mat-form-field>
-                <mat-label>Categoría del juego</mat-label>
+                <mat-label>Game Category</mat-label>
                 <mat-select disableRipple [(ngModel)]="filterCategory" name="category">
                     <mat-option *ngFor="let category of categories" [value]="category">{{category.name}}</mat-option>
                 </mat-select>

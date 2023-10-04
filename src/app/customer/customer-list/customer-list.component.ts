@@ -37,9 +37,9 @@ export class CustomerListComponent implements OnInit {
     });    
   }
   
-  editCustomer(customer: Customer) {
+  editCustomer(customerr: Customer) {
     const dialogRef = this.dialog.open(CustomerEditComponent, {
-      data: { customer: customer }
+      data: { customer: customerr }
     });
 
     dialogRef.afterClosed().subscribe(result => {

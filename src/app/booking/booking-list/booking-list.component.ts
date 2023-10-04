@@ -10,7 +10,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { BookingEditComponent } from '../booking-edit/booking-edit.component';
 import { DialogConfirmationComponent } from '../../core/dialog-confirmation/dialog-confirmation.component';
 import { PageEvent } from '@angular/material/paginator';
-import { Pageable } from 'src/app/core/model/page/Pageable';
+import { PageableRequest } from 'src/app/core/model/page/PageableRequest';
+import * as moment from 'moment-timezone';
+import 'moment/locale/es';
+
 
 @Component({
   selector: 'app-booking-list',
@@ -49,7 +52,7 @@ export class BookingListComponent implements OnInit {
   loadPage(event?: PageEvent) {
 
     
-    let pageable : Pageable =  {
+    let pageableRequest : PageableRequest =  {
         pageNumber: this.pageNumber,
         pageSize: this.pageSize,
         sort: [{
@@ -59,11 +62,11 @@ export class BookingListComponent implements OnInit {
     }
 
     if (event != null) {
-        pageable.pageSize = event.pageSize
-        pageable.pageNumber = event.pageIndex;
+      pageableRequest.pageSize = event.pageSize
+      pageableRequest.pageNumber = event.pageIndex;
     }
 
-    this.bookingService.getBookings(null,null,pageable).subscribe(data => {
+    this.bookingService.getBookings(null,null,null,null,pageableRequest).subscribe(data => {
         this.dataSource.data = data.content;
         this.pageNumber = data.pageable.pageNumber;
         this.pageSize = data.pageable.pageSize;
@@ -93,11 +96,21 @@ export class BookingListComponent implements OnInit {
   onSearch(): void {
 
     let title = this.filterTitle;
-    let inicio = this.filterInicio;
-    let fin = this.filterFin;
+    let inicio:String = null;
+    let fin:String = null;
+
+    if (typeof this.filterInicio != "undefined"){
+      inicio = moment.tz(new Date(this.filterInicio), 'Europe/Madrid').format();
+      alert(new Date(this.filterInicio).toISOString());
+      console.log(new Date(this.filterInicio).toISOString());
+    } 
+    if (typeof this.filterFin != "undefined"){
+      fin = moment.tz(new Date(this.filterFin), 'Europe/Madrid').format();
+    } 
+    
     let customerId = this.filterCustomer != null ? this.filterCustomer.id : null;
 
-    let pageable : Pageable =  {
+    let pageableRequest : PageableRequest =  {
       pageNumber: this.pageNumber,
       pageSize: this.pageSize,
       sort: [{
@@ -105,8 +118,45 @@ export class BookingListComponent implements OnInit {
           direction: 'ASC'
       }]
   }
+    /*
+    var madrid = moment.tz(new Date(), "Europe/Madrid");
+    var london = madrid.clone().tz("Europe/London");
+    var newYork= madrid.clone().tz("America/New_York");
+    alert("newYork "+ newYork.format());  
+    alert("london " + london.format());
+    alert("madrid " + madrid.format());
 
-    this.bookingService.getBookings(title, customerId, pageable).subscribe(data => {
+    let mydateString: string = moment.tz(new Date(), 'Europe/Madrid').subtract(2,'y').format()
+    alert(mydateString = moment().locale('es').format('LLLL')); //moment.locale('es');
+    alert(moment('2023-10-23 00:00:00', 'YYYY-MM-DD', 'es'));
+    alert(moment(new Date(), 'YYYY-MM-DD HH:mm:SS', 'es'));
+       
+    alert(moment.tz(new Date(), 'Europe/Madrid').format('YYYY-MM-DDTHH:mm:SS z'));    
+    alert(moment.tz(new Date(), 'Europe/Madrid').format());
+  
+    mydateString = new Date("1938-10-11T01:00:00").toISOString();
+    console.log(mydateString);
+    alert(mydateString);
+    */
+
+    const str = '21-07-2024 04:24:37';
+    const [dateComponents, timeComponents] = str.split(' ');    
+    console.log(dateComponents); // 👉️ "21-07-2024"
+    console.log(timeComponents); // 👉️ "04:24:37" 👇️
+    
+    const [day, month, year] = dateComponents.split('-');
+    const [hours, minutes, seconds] = timeComponents.split(':');
+    
+    const date1 = new Date(+year, +month - 1, +day, +hours, +minutes, +seconds);    
+    console.log(date1);  // 👉️ Sun Jul 21 2024 04:24:37
+
+    const str2 = '24-09-2023 09:44:21';
+    const date2 = moment(str2, 'DD-MM-YYYY hh:mm:ss').toDate();
+    console.log(date2); // 👉️ 24-09-2023T07:44:21 GMT+0200
+
+    
+    this.bookingService.getBookings(title, customerId, inicio, fin, pageableRequest).subscribe(data => {
+    //this.bookingService.getBookings(title, customerId, "1938-10-11T02:00:00.000+02:00","1938-10-15T01:00:00.000+02:00", pageableRequest).subscribe(data => {
         this.dataSource.data = data.content;
         this.pageNumber = data.pageable.pageNumber;
         this.pageSize = data.pageable.pageSize;
@@ -125,9 +175,9 @@ export class BookingListComponent implements OnInit {
     });    
   }
   
-  editBooking(booking: Booking) {
+  editBooking(bookingg: Booking) {
     const dialogRef = this.dialog.open(BookingEditComponent, {
-      data: { booking: booking }
+      data: { booking: bookingg }
     });
 
     dialogRef.afterClosed().subscribe(result => {

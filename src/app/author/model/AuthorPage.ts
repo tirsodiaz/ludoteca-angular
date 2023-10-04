@@ -1,9 +1,9 @@
-import { Pageable } from "../../core/model/page/Pageable";
+import { PageableRequest } from "../../core/model/page/PageableRequest";
 import { Author } from "./Author";
 
 export class AuthorPage {
     content: Author[];
-    pageable: Pageable;
+    pageable: PageableRequest;
     totalElements: number;
     totalPages: number;
     first: boolean;
