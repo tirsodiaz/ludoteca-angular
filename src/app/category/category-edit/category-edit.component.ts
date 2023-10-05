@@ -21,6 +21,7 @@ export class CategoryEditComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.data.category != null) {
+      //en el .open() escribimos en el atributo category de data. Aquí asignamos desde data en el atributo de la clase
       //this.category = this.data.category; //actualiza también el listado
       this.category = Object.assign({}, this.data.category); //copia para no actualizar listado
     }

@@ -20,6 +20,7 @@ export class AuthorEditComponent implements OnInit {
 
     ngOnInit(): void {
         if (this.data.author != null) {
+            //en el .open() escribimos en el atributo autor de data. Aquí asignamos desde data en el atributo de la clase
             this.author = Object.assign({}, this.data.author);
         }
         else {

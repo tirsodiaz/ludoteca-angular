@@ -20,6 +20,7 @@ export class CustomerEditComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.data.customer != null) {
+      //en el .open() escribimos en el atributo customer de data. Aquí asignamos desde data en el atributo de la clase
       //this.customer = this.data.customer; actualiza también el listado
       this.customer = Object.assign({}, this.data.customer); //copia para no actualizar el listado
     }

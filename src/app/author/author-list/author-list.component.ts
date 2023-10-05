@@ -49,13 +49,14 @@ export class AuthorListComponent implements OnInit {
             ppageableRequest.pageNumber = event.pageIndex;
         }
 
-        this.authorService.getAuthors(ppageableRequest).subscribe(data => {
-            this.dataSource.data = data.content;
-            this.pageNumber = data.pageable.pageNumber;
-            this.pageSize = data.pageable.pageSize;
-            this.totalElements = data.totalElements;
-            this.totalPages = data.totalPages;
-            this.first = data.first;        
+        this.authorService.getAuthors(ppageableRequest).subscribe(
+            authorPage => {
+            this.dataSource.data = authorPage.content;
+            this.pageNumber = authorPage.pageable.pageNumber;
+            this.pageSize = authorPage.pageable.pageSize;
+            this.totalElements = authorPage.totalElements;
+            this.totalPages = authorPage.totalPages;
+            this.first = authorPage.first;        
         });
 
     }  

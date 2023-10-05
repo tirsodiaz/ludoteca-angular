@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Booking } from '../model/Booking';
 import { Customer } from 'src/app/customer/model/Customer';
-import { Game } from 'src/app/game/model/Game';
+//import { Game } from 'src/app/game/model/Game';
 import { BookingService } from '../booking.service';
 import { CustomerService } from 'src/app/customer/customer.service';
-import { GameService } from 'src/app/game/game.service';
+//import { GameService } from 'src/app/game/game.service';
 import { MatDialog } from '@angular/material/dialog';
 import { BookingEditComponent } from '../booking-edit/booking-edit.component';
 import { DialogConfirmationComponent } from '../../core/dialog-confirmation/dialog-confirmation.component';
@@ -27,10 +27,10 @@ export class BookingListComponent implements OnInit {
   totalElements: number = 0;
 
   dataSource = new MatTableDataSource<Booking>();
-  displayedColumns: string[] = ['id','game.title','customer.name','inicio','fin','action'];
+  displayedColumns: string[] = ['id','game.titlee','customerr.name','inicio','fin','action'];
 
   customers: Customer[];
-  games: Game[];
+  //games: Game[];
   bookings: Booking[]; 
   filterTitle: string;
   filterCustomer: Customer;
@@ -41,7 +41,7 @@ export class BookingListComponent implements OnInit {
   constructor(
     private bookingService: BookingService,
     private customerService: CustomerService,
-    private gameService: GameService,
+    //private gameService: GameService,
     public dialog: MatDialog,
   ) { }
 
@@ -52,7 +52,7 @@ export class BookingListComponent implements OnInit {
   loadPage(event?: PageEvent) {
 
     
-    let pageableRequest : PageableRequest =  {
+    let ppageableRequest : PageableRequest =  {
         pageNumber: this.pageNumber,
         pageSize: this.pageSize,
         sort: [{
@@ -62,15 +62,15 @@ export class BookingListComponent implements OnInit {
     }
 
     if (event != null) {
-      pageableRequest.pageSize = event.pageSize
-      pageableRequest.pageNumber = event.pageIndex;
+      ppageableRequest.pageSize = event.pageSize
+      ppageableRequest.pageNumber = event.pageIndex;
     }
 
-    this.bookingService.getBookings(null,null,null,null,pageableRequest).subscribe(data => {
-        this.dataSource.data = data.content;
-        this.pageNumber = data.pageable.pageNumber;
-        this.pageSize = data.pageable.pageSize;
-        this.totalElements = data.totalElements;
+    this.bookingService.getBookings(null,null,null,null,ppageableRequest).subscribe(bbookingPage => {
+        this.dataSource.data = bbookingPage.content;
+        this.pageNumber = bbookingPage.pageable.pageNumber;
+        this.pageSize = bbookingPage.pageable.pageSize;
+        this.totalElements = bbookingPage.totalElements;
     });
     
     
@@ -78,9 +78,11 @@ export class BookingListComponent implements OnInit {
       this.customers = customers
     );
 
+    /*
     this.gameService.getGames().subscribe(games => 
       this.games = games
     );
+    */
 
   } 
 
@@ -99,18 +101,18 @@ export class BookingListComponent implements OnInit {
     let inicio:String = null;
     let fin:String = null;
 
-    if (typeof this.filterInicio != "undefined"){
+    if (typeof this.filterInicio != "undefined" && this.filterInicio != null){
       inicio = moment.tz(new Date(this.filterInicio), 'Europe/Madrid').format();
       alert(new Date(this.filterInicio).toISOString());
       console.log(new Date(this.filterInicio).toISOString());
     } 
-    if (typeof this.filterFin != "undefined"){
+    if (typeof this.filterFin != "undefined" && this.filterFin != null){
       fin = moment.tz(new Date(this.filterFin), 'Europe/Madrid').format();
     } 
     
     let customerId = this.filterCustomer != null ? this.filterCustomer.id : null;
 
-    let pageableRequest : PageableRequest =  {
+    let ppageableRequest : PageableRequest =  {
       pageNumber: this.pageNumber,
       pageSize: this.pageSize,
       sort: [{
@@ -148,14 +150,14 @@ export class BookingListComponent implements OnInit {
     const [hours, minutes, seconds] = timeComponents.split(':');
     
     const date1 = new Date(+year, +month - 1, +day, +hours, +minutes, +seconds);    
-    console.log(date1);  // 👉️ Sun Jul 21 2024 04:24:37
+    console.log(date1);  // 👉️ Sun Jul 21 2024 04:24:37 GMT+0200
 
     const str2 = '24-09-2023 09:44:21';
     const date2 = moment(str2, 'DD-MM-YYYY hh:mm:ss').toDate();
     console.log(date2); // 👉️ 24-09-2023T07:44:21 GMT+0200
 
     
-    this.bookingService.getBookings(title, customerId, inicio, fin, pageableRequest).subscribe(data => {
+    this.bookingService.getBookings(title, customerId, inicio, fin, ppageableRequest).subscribe(data => {
     //this.bookingService.getBookings(title, customerId, "1938-10-11T02:00:00.000+02:00","1938-10-15T01:00:00.000+02:00", pageableRequest).subscribe(data => {
         this.dataSource.data = data.content;
         this.pageNumber = data.pageable.pageNumber;

@@ -18,6 +18,6 @@ export const AUTHOR_DATA: AuthorPage = {
         ]
     },
     totalElements: 7,
-    totalPages: 12,
-    first: false
+    totalPages: 2,
+    first: true
 }

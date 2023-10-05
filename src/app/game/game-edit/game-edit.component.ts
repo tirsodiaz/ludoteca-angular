@@ -28,6 +28,7 @@ export class GameEditComponent implements OnInit {
 
     ngOnInit(): void {
         if (this.data.game != null) {
+            //en el .open() escribimos en el atributo game de data. Aquí asignamos desde data en el atributo de la clase
             this.game = Object.assign({}, this.data.game);
         }
         else {
@@ -37,8 +38,9 @@ export class GameEditComponent implements OnInit {
         this.categoryService.getCategories().subscribe(
             categories => {
                 this.categories = categories;
+                
                 if (this.game.category != null) {
-                    let categoryFilter: Category[] = categories.filter(category => category.id == this.data.game.category.id);
+                    let categoryFilter: Category[] = categories.filter(category => category.id == this.data.game.category.id); //también valdría ==this.game.category.id
                     if (categoryFilter != null) {
                         this.game.category = categoryFilter[0];
                     }
@@ -51,7 +53,7 @@ export class GameEditComponent implements OnInit {
                 this.authors = authors
 
                 if (this.game.author != null) {
-                    let authorFilter: Author[] = authors.filter(author => author.id == this.data.game.author.id);
+                    let authorFilter: Author[] = authors.filter(author => author.id == this.data.game.author.id); //también valdría ==this.game.author.id
                     if (authorFilter != null) {
                         this.game.author = authorFilter[0];
                     }
