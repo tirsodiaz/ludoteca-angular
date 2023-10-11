@@ -31,10 +31,14 @@ export class CategoryEditComponent implements OnInit {
   }
 
   onSave() {
-    this.categoryService.saveCategory(this.category).subscribe(result => {
-      this.dialogRef.close();
-    });    
-  }  
+    //console.log(this.category.name.length);
+    //alert(this.category.name.length);
+    if (this.category.name!="" && this.category.name.length>0) {
+        this.categoryService.saveCategory(this.category).subscribe(result => {
+          this.dialogRef.close();
+      });    
+    }
+  }
 
   onClose() {
     this.dialogRef.close();

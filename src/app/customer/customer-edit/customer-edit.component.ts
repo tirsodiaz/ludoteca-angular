@@ -30,10 +30,14 @@ export class CustomerEditComponent implements OnInit {
   }
 
   onSave() {
-    this.customerService.saveCustomer(this.customer).subscribe(result => {
-      this.dialogRef.close();
-    });    
-  }  
+    //console.log(this.customer.name.length);
+    //alert(this.customer.name.length);
+    if (this.customer.name!="" && this.customer.name.length>0) {
+      this.customerService.saveCustomer(this.customer).subscribe(result => {
+        this.dialogRef.close();
+      });  
+    }
+  }
 
   onClose() {
     this.dialogRef.close();

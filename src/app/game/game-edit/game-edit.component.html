@@ -1,3 +1,4 @@
+errorMessage={{errorMessage}}
 <div class="container">
     <h1 *ngIf="game.id == null">Crear juego</h1>
     <h1 *ngIf="game.id != null">Modificar juego</h1>
@@ -40,5 +41,6 @@
     <div class="buttons">
         <button mat-stroked-button (click)="onClose()">Cerrar</button>
         <button mat-flat-button color="primary" (click)="onSave()">Guardar</button>
+        <button mat-flat-button color="primary" (click)="onDelete()">Eliminar</button>
     </div>
 </div>

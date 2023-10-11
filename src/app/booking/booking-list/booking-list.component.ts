@@ -37,7 +37,6 @@ export class BookingListComponent implements OnInit {
   filterInicio: Date;
   filterFin: Date;
 
-
   constructor(
     private bookingService: BookingService,
     private customerService: CustomerService,
@@ -45,8 +44,8 @@ export class BookingListComponent implements OnInit {
     public dialog: MatDialog,
   ) { }
 
-  ngOnInit(): void {
-    this.loadPage();
+  ngOnInit(): void {    
+    this.loadPage();    
   }
 
   loadPage(event?: PageEvent) {
@@ -194,8 +193,9 @@ export class BookingListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.bookingService.deleteBooking(booking.id).subscribe(result => {
-          this.ngOnInit();
+        this.bookingService.deleteBooking(booking.id).subscribe(
+          result => {
+            this.ngOnInit();
         }); 
       }
     });

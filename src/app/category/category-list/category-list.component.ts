@@ -15,6 +15,7 @@ export class CategoryListComponent implements OnInit {
 
   dataSource = new MatTableDataSource<Category>();
   displayedColumns: string[] = ['id', 'name', 'action'];
+  errorMessage: String;
 
   constructor(
     private categoryService: CategoryService,
@@ -29,6 +30,7 @@ export class CategoryListComponent implements OnInit {
     this.categoryService.getCategories().subscribe(
       categories => this.dataSource.data = categories
     );
+    this.errorMessage="";
   }
 
   createCategory() {    
@@ -58,9 +60,15 @@ export class CategoryListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.categoryService.deleteCategory(category.id).subscribe(result => {
-          this.ngOnInit();
-        }); 
+        this.categoryService.deleteCategory(category.id).subscribe(
+          result => {
+            this.ngOnInit();
+        },
+          error => {
+            //alert(error.error), console.error(error.error),
+            this.errorMessage = error.error;
+        }
+        ); 
       }
     });
   }

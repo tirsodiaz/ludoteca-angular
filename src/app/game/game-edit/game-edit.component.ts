@@ -17,6 +17,7 @@ export class GameEditComponent implements OnInit {
     game: Game; 
     authors: Author[];
     categories: Category[];
+    errorMessage: String;
 
     constructor(
         public dialogRef: MatDialogRef<GameEditComponent>,
@@ -63,13 +64,31 @@ export class GameEditComponent implements OnInit {
     }
 
     onSave() {
-        this.gameService.saveGame(this.game).subscribe(result => {
-            this.dialogRef.close();
-        });    
+        //console.log(this.game.title.length);
+        //alert(this.game.title.length);
+        if (this.game.title!="" && this.game.title.length>0 && this.game.age>0 && this.game.author!=null && this.game.category!=null) {
+            this.gameService.saveGame(this.game).subscribe(result => {
+                this.dialogRef.close();
+            });    
+        }
     }  
 
     onClose() {
         this.dialogRef.close();
+    }
+
+    
+    onDelete() {  
+        this.gameService.deleteGame(this.game.id).subscribe(
+            result => {
+                this.dialogRef.close();
+                this.ngOnInit();                
+            },
+            error => {
+                //alert(error.error), console.error(error.error),
+                this.errorMessage = error.error;
+            }
+        )
     }
 
 }

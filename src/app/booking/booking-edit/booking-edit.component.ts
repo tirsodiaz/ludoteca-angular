@@ -67,28 +67,33 @@ export class BookingEditComponent implements OnInit {
     }
 
     onSave() {
-        // this.bookingService.saveBooking(this.booking).subscribe(result => {
-        //     this.dialogRef.close();
-        //   });    
-
-        this.bookingService.saveBooking(this.booking).subscribe({
-            next: () => {
-                console.log('Guardado con éxito');
-                this.dialogRef.close();
-                this.dialog.open(DialogElementsExampleDialogComponent, {
-                     data: { title: "Resultado Operación", description: 'Actualización OK' }
-                });                               
-            },
-            error: (errorResponse) => {
-                console.log(errorResponse.error.message);        
-                this.dialog.open(DialogElementsExampleDialogComponent, {
-                    data: { title: "Resultado Operación", description: errorResponse.error.message, description2: errorResponse.error.message }
-                });         
-            },
-            // complete() {
+        //console.log(this.booking.inicio.length);
+        //alert(this.booking.inicio.length);
+        if (this.booking.inicio!=null && this.booking.fin!=null && this.booking.game!=null && this.booking.customer!=null) {
+            // this.bookingService.saveBooking(this.booking).subscribe(result => {
             //     this.dialogRef.close();
-            // },
-        });       
+            //   });    
+
+
+            this.bookingService.saveBooking(this.booking).subscribe({
+                next: () => {
+                    console.log('Guardado con éxito');
+                    this.dialogRef.close();
+                    this.dialog.open(DialogElementsExampleDialogComponent, {
+                        data: { title: "Resultado Operación okkk", description: "Actualización OK" }
+                    });                               
+                },
+                error: (errorResponse) => {
+                    console.log(errorResponse.error.message);        
+                    this.dialog.open(DialogElementsExampleDialogComponent, {
+                        data: { title: "Resultado Operación kooo", description: errorResponse.message, description2: errorResponse.message }
+                    });         
+                },
+                // complete() {
+                //     this.dialogRef.close();
+                // },
+            });
+        }       
     }  
 
     onClose() {

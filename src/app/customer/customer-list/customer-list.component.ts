@@ -15,6 +15,7 @@ export class CustomerListComponent implements OnInit {
 
   dataSource = new MatTableDataSource<Customer>();
   displayedColumns: string[] = ['id', 'name', 'action'];
+  errorMessage: String;
 
   constructor(
     private customerService: CustomerService,
@@ -25,6 +26,7 @@ export class CustomerListComponent implements OnInit {
     this.customerService.getCustomers().subscribe(
       customers => this.dataSource.data = customers
     );
+    this.errorMessage="";
   }
 
   createCustomer() {    
@@ -56,6 +58,10 @@ export class CustomerListComponent implements OnInit {
       if (result) {
         this.customerService.deleteCustomer(customer.id).subscribe(result => {
           this.ngOnInit();
+        },
+          error => {
+            //alert(error.error), console.error(error.error),
+            this.errorMessage = error.error;
         }); 
       }
     });

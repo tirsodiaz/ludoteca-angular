@@ -46,4 +46,9 @@ export class GameService {
         if (params == '') return url;
         else return url + '?'+params;
     }
+
+    deleteGame(idGame: number): Observable<any> {
+        //return of(null);
+        return this.http.delete('http://localhost:8080/game/'+idGame);
+      }  
 }

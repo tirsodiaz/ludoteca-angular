@@ -20,6 +20,7 @@ export class AuthorListComponent implements OnInit {
     totalElements: number = 0;
     totalPages: number = 0;
     first: boolean = false;
+    errorMessage: String;
    
     dataSource = new MatTableDataSource<Author>();
     displayedColumns: string[] = ['id', 'name', 'nationality', 'action'];
@@ -30,6 +31,7 @@ export class AuthorListComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
+        this.errorMessage = "";
         this.loadPage();
     }
 
@@ -66,7 +68,8 @@ export class AuthorListComponent implements OnInit {
             data: {}
         });
 
-        dialogRef.afterClosed().subscribe(result => {
+        dialogRef.afterClosed().subscribe(result => {        
+            //if (result)
             this.ngOnInit();
         });      
     }  
@@ -77,6 +80,7 @@ export class AuthorListComponent implements OnInit {
         });
 
         dialogRef.afterClosed().subscribe(result => {
+            //if (result)
             this.ngOnInit();
         });    
     }
@@ -88,9 +92,15 @@ export class AuthorListComponent implements OnInit {
 
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
-                this.authorService.deleteAuthor(author.id).subscribe(result =>  {
+                this.authorService.deleteAuthor(author.id).subscribe(
+                result =>  {
                     this.ngOnInit();
-                }); 
+                },
+                error => {
+                    //alert(error.error), console.error(error.error),
+                    this.errorMessage = error.error;
+                }
+                ); 
             }
         });
     }  
